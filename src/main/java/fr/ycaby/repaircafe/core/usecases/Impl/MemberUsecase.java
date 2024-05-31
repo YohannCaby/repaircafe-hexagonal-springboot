@@ -14,11 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MemberService implements IMemberApi {
+public class MemberUsecase implements IMemberApi {
 
     private final IMemberRepo memberRepo;
 
-    public MemberService(IMemberRepo memberRepo){
+    public MemberUsecase(IMemberRepo memberRepo){
         this.memberRepo = memberRepo;
     }
 

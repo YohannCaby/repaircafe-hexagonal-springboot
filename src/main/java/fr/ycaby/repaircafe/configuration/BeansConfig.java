@@ -7,7 +7,7 @@ import fr.ycaby.repaircafe.core.port.persistence.MemberRoleRepoPort;
 import fr.ycaby.repaircafe.core.port.persistence.MembershipRepoPort;
 import fr.ycaby.repaircafe.core.port.persistence.impl.MemberRepo;
 import fr.ycaby.repaircafe.core.usecases.IMemberApi;
-import fr.ycaby.repaircafe.core.usecases.Impl.MemberService;
+import fr.ycaby.repaircafe.core.usecases.Impl.MemberUsecase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,6 +21,6 @@ public class BeansConfig {
     // Primary Port : Use Cases beans
     @Bean
     public IMemberApi getMemberApi(IMemberRepo memberRepo){
-        return new MemberService(memberRepo);
+        return new MemberUsecase(memberRepo);
     }
 }

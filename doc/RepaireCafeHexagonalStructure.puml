@@ -1,0 +1,114 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package "core.port.persistence"{
+    interface MemberRepoPort{
+        List<Member> findAll()
+        Member save(Member member)
+        Member findById(String id)
+        Member deleteById(String id)
+    }
+
+    package "core.port.persistence.impl"{
+        class MemberRepo
+    }
+    MemberRepoPort <|-- MemberRepo
+}
+package "core.exception" {
+    exception BusinessExceptions
+}
+package "core.model"{
+    class Device{
+        String name
+        String brand
+        String model
+        float weight
+        List<Repair> repairList
+    }
+    class Member{
+        String name
+        String surname
+        String serialNumber
+        int birthYear
+        List<Device> deviceList
+        List<Membership> membershipList
+        List<MemberRoleEnum> roles
+    }
+    class Membership{
+        LocalDate date
+        LocalDate expiration
+        float paid
+    }
+    class Repair{
+        LocalDateTime date
+        Member repairer
+        long repairTime
+        RepairStatus repairStatus
+        String description
+        Device device
+        Member visitor
+    }
+    enum RepairStatus{
+        REPAIRED,
+        RUBISH,
+        ADVICED,
+        WILL_COME_BACK,
+        UNKNOWN
+        }
+    enum MemberRole{
+        VISITOR,
+        REPAIR,
+        RECEPTIONIST,
+        UNKNOWN,
+        TECH
+    }
+
+    Repair o-- RepairStatus
+    Repair o-- Member
+    Repair o-- Member
+    Repair o-- Device
+
+    Member o-- MemberRole
+    Member o-- Membership
+    Member o-- Device
+}
+
+package "core.usecases"{
+    interface IMemberApi{
+            Member saveOrUpdateMember(Member member)
+            Member addRole(Member member, MemberRoleEnum role) throws MemberRoleAlreadyPresentException
+            List<MemberRoleEnum> getRoles()
+            Member removeRole(Member member, MemberRoleEnum role) throws NoMemberRolePresentExpception
+            Member findBySerialNumber(String serialNumbe)
+            List<Member> search(String label)
+    }
+    package "core.usecases.impl"{
+        class MemberService
+    }
+
+    IMemberApi <|-- MemberService
+}
+
+package "infrastrucure.primary.rest"{
+    class MemberRestControlerImpl<@RestController>
+    MemberRestControlerImpl o-- IMemberApi
+}
+
+package "infrastrucure.secondary.db"{
+    class MemberRepo<@Service>
+    package "infrastrucure.secondary.db.repo"{
+        interface MemberJpaRepo
+        interface CrudRepository
+        CrudRepository <|-- MemberJpaRepo
+    }
+    MemberRepo o-- MemberJpaRepo
+
+    MemberRepoPort <|-- MemberRepo
+}
+package "configuration"{
+    class BeanConfig<@Configuration>{
+        MemberRepoPort memberRepoPort()
+        IMemberApi iMemberApi()
+    }
+}
+@enduml

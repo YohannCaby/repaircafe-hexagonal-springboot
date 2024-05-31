@@ -4,5 +4,6 @@ public enum MemberRoleEnum{
     VISITOR,
     REPAIR,
     RECEPTIONIST,
-    UNKNOWN, TECH
+    UNKNOWN,
+    TECH;
 }

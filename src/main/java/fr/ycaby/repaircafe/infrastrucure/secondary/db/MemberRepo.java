@@ -9,11 +9,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MemberPersistenceRepo implements MemberRepoPort {
+public class MemberRepo implements MemberRepoPort {
     private final MemberJpaRepo memberJpaRepo;
     private final MemberEntityMapper mapper;
 
-    public MemberPersistenceRepo(MemberJpaRepo memberJpaRepo, MemberEntityMapper mapper) {
+    public MemberRepo(MemberJpaRepo memberJpaRepo, MemberEntityMapper mapper) {
         this.memberJpaRepo = memberJpaRepo;
         this.mapper = mapper;
     }
