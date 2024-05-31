@@ -3,10 +3,10 @@ package fr.ycaby.repaircafe.core.port.persistence.impl;
 import fr.ycaby.repaircafe.core.model.MemberRoleEnum;
 import fr.ycaby.repaircafe.core.model.Member;
 import fr.ycaby.repaircafe.core.model.Membership;
-import fr.ycaby.repaircafe.core.port.DeviceRepoPort;
-import fr.ycaby.repaircafe.core.port.MemberRepoPort;
-import fr.ycaby.repaircafe.core.port.MemberRoleRepoPort;
-import fr.ycaby.repaircafe.core.port.MembershipRepoPort;
+import fr.ycaby.repaircafe.core.port.persistence.DeviceRepoPort;
+import fr.ycaby.repaircafe.core.port.persistence.MemberRepoPort;
+import fr.ycaby.repaircafe.core.port.persistence.MemberRoleRepoPort;
+import fr.ycaby.repaircafe.core.port.persistence.MembershipRepoPort;
 import fr.ycaby.repaircafe.core.port.persistence.IMemberRepo;
 
 import java.util.ArrayList;

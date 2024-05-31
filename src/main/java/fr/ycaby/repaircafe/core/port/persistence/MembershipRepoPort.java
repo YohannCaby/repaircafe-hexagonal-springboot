@@ -1,4 +1,4 @@
-package fr.ycaby.repaircafe.core.port;
+package fr.ycaby.repaircafe.core.port.persistence;
 
 import fr.ycaby.repaircafe.core.model.Member;
 import fr.ycaby.repaircafe.core.model.Membership;

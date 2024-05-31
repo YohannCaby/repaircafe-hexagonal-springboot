@@ -5,12 +5,12 @@ import fr.ycaby.repaircafe.core.model.Membership;
 import fr.ycaby.repaircafe.infrastrucure.secondary.db.entities.MembershipEntity;
 import fr.ycaby.repaircafe.infrastrucure.secondary.db.mapper.MembershipEntityMapper;
 import fr.ycaby.repaircafe.infrastrucure.secondary.db.repo.MembershipJpaRepo;
-import fr.ycaby.repaircafe.core.port.MembershipRepoPort;
-import org.springframework.stereotype.Component;
+import fr.ycaby.repaircafe.core.port.persistence.MembershipRepoPort;
 
 import java.util.List;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class MembershipRepo implements MembershipRepoPort {
     private final MembershipJpaRepo membershipJpaRepo;
     private final MembershipEntityMapper mapper;
@@ -28,7 +28,7 @@ public class MembershipRepo implements MembershipRepoPort {
     @Override
     public boolean isFromExist(Member member, Membership membership) {
         MembershipEntity entity = mapToEntity(member,membership);
-        return membershipJpaRepo.existsById(entity.getId());
+        return membershipJpaRepo.existsById(entity.getMembershipId());
     }
 
     @Override
@@ -50,7 +50,7 @@ public class MembershipRepo implements MembershipRepoPort {
 
     private MembershipEntity mapToEntity(Member member, Membership membership){
         MembershipEntity membershipEntity = mapper.toEntity(membership);
-        membershipEntity.getId().setSerialNumber(member.getSerialNumber());
+        membershipEntity.getMembershipId().setSerialNumber(member.getSerialNumber());
         return membershipEntity;
     }
 

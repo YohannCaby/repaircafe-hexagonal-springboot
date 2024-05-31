@@ -5,10 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.convert.DataSizeUnit;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -17,7 +15,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 public class MembershipEntity {
     @EmbeddedId
-    MembershipPK id;
+    MembershipPK membershipId;
     LocalDate expiration;
     float paid;
 }

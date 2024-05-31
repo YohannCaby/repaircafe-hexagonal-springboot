@@ -1,17 +1,19 @@
 package fr.ycaby.repaircafe.infrastrucure.secondary.db;
 
 import fr.ycaby.repaircafe.core.model.Member;
-import fr.ycaby.repaircafe.core.port.MemberRepoPort;
+import fr.ycaby.repaircafe.core.port.persistence.MemberRepoPort;
 import fr.ycaby.repaircafe.infrastrucure.secondary.db.mapper.MemberEntityMapper;
 import fr.ycaby.repaircafe.infrastrucure.secondary.db.repo.MemberJpaRepo;
 
 import java.util.List;
+import org.springframework.stereotype.Service;
 
-public class MemberRepo implements MemberRepoPort {
+@Service
+public class MemberPersistenceRepo implements MemberRepoPort {
     private final MemberJpaRepo memberJpaRepo;
     private final MemberEntityMapper mapper;
 
-    public MemberRepo(MemberJpaRepo memberJpaRepo, MemberEntityMapper mapper) {
+    public MemberPersistenceRepo(MemberJpaRepo memberJpaRepo, MemberEntityMapper mapper) {
         this.memberJpaRepo = memberJpaRepo;
         this.mapper = mapper;
     }
