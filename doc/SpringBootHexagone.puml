@@ -1,0 +1,29 @@
+@startuml
+'https://blog.ippon.fr/2021/02/17/spring-boot-hexagone/
+
+package "fr.ycaby.hexa.infrastructure.primary" {
+    class RestController<SpringBoot>
+}
+package "fr.ycaby.hexa.service.application"{
+    class ApplicationService
+    interface IApplicationServicePort
+}
+IApplicationServicePort <|-- RestController : <implement>
+IApplicationServicePort <|-- ApplicationService : <implement>
+package "fr.ycaby.hexa.domain"{
+    class Domain
+}
+Domain <-- ApplicationService : <use>
+package "fr.ycaby.hexa.infrastructure.secondary"{
+    interface CrudRepository<SpringBoot>
+    class Entity<JPA>
+}
+Entity <- CrudRepository : <generic>
+package "fr.ycaby.hexa.service.provider"{
+    interface IProviderServicePort
+    class ProviderService
+}
+CrudRepository <|-- IProviderServicePort
+IProviderServicePort --o ProviderService
+Domain <-- ProviderService : <use>
+@enduml

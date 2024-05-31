@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: repaircafe-hexagonal-springboot
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MariaDBDialect
+  datasource:
+    url: jdbc:mariadb://${MYSQL_HOST:localhost}:3306/repaircafe
+    username: repaircafe
+    password: repaircafe
+server:
+  port: 8081

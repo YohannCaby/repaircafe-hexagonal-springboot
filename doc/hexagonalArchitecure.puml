@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+namespace Domain{
+    class Service
+    interface IServicePort<Port>
+    interface Irepo
+    class Repo
+    interface IRepoPort<Port>
+}
+namespace infra.jpa{
+    class Entity
+    class InfraRepoImpl
+    interface JpaRepo<Entity>
+    interface CrudRepository <SpringBoot>
+}
+namespace infra.rest{
+    interface RestController<@RestController>
+    class RestControllerImpl
+}
+'Domain
+Irepo <|-- Repo
+IServicePort <|-- Service
+Service o-- Irepo
+Repo o-- IRepoPort
+'Infra SPI
+JpaRepo o-- InfraRepoImpl
+IRepoPort <|-- InfraRepoImpl
+CrudRepository <|-- JpaRepo
+JpaRepo <-- Entity
+'Infra Api
+RestController <|-- RestControllerImpl
+RestControllerImpl o-- IServicePort
+@enduml

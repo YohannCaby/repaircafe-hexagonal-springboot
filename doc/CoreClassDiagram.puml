@@ -1,0 +1,133 @@
+@startuml
+'https://plantuml.com/class-diagram
+'Services
+package domain.service {
+    class RepairService{
+    - repairDB: IRepairDB
+    }
+    class VisitorService{
+    - visitorDB: IVisitorDB
+    - deviceDB : IDeviceDB
+    - membershipDB: IMembershipDB
+    }
+    class DeviceService{
+    - deviceDB : IDeviceDB
+    }
+    class RepairerService{
+    - repairerDB : IRepairDB
+    }
+}
+'API port
+package domain.application {
+    interface IRepairApi<Port>{
+    + initReparation(device: Device, visitor: Visitor, repairer: Repairer)
+    + changeStatus(status: RepairStatus, description: String, repairTime: Long)
+    }
+    interface IVisitorApi<Port>{
+    + save(visitor: Visitor) : Visitor
+    + addMembership(visitor: Visitor, membership: Membership) : Visitor
+
+    }
+    interface IRepairerApi<Port>{
+    + save(repairer: Repairer) : Repairer
+    }
+    interface IDeviceApi<Port>{
+    + save(device : Device) : Repairer
+    }
+}
+'SPI port
+package domain.provider {
+    interface IVisitorDB<Port>{
+    + find(name: String, surname: String): Visitor
+    + save(visitor: Visitor): Visitor
+    }
+    interface IDeviceDB<Port>{
+    + find(deviceName: String, visitor: Visitor) : Device
+    + save(device : Device) : Device
+    }
+    interface IRepairDB<Port>{
+    + save(repair: Repair)
+    + findRepairList(device: Device): List<Repair>
+    }
+    interface IRepairerDB<Port>{
+    + saveRepairer(repairer: Repairer) : Repairer
+    + findRepairer(name: String, surname: String) : Repairer
+    }
+    interface IMembershipDB<Port>{
+    + save(membership: Membership)
+    + findMembership(member: Member)
+    }
+}
+'Domain
+package domain {
+    package "bc-repair" <<rectangle>>{
+        class Device{
+        - name : String
+        - brand : String
+        - model : String
+        - weigth: Float
+        - repairList: List<Repair>
+        + getCurrentKnownRepairStatus() : RepairStatus
+        }
+        class Repair{
+        - date: LocalDate
+        - repairer: Repairer
+        - repairTime: Long
+        - repairStatus: RepairStatus
+        - description: String
+        }
+        enum RepairStatus {
+        REPAIRED
+        RUBISH
+        ADVICED
+        WILL_COME_BACK
+        UNKNOWN
+        }
+    }
+    package "bc-member" <<rectangle>>{
+        class Member{
+        - name: String
+        - surname: String
+        - membershipList: List<Membership>
+        - birthYear: int
+        - deviceList: List<Device>
+        + getLastMembership(): Membership
+        + isValidMembership(): Boolean
+        }
+        class Membership {
+        - date: LocalDate
+        - expiration: LocalDate
+        - paid: Float
+        }
+    }
+}
+
+Member <|-- Visitor : extends
+Member <|-- Repairer : extends
+Repair *-- "1" RepairStatus
+Repair *-- "1" Device
+Repair *-- "1" Visitor
+Repair *-- "1" Repairer
+Visitor "1" o-- "0..*" Membership
+Repairer "1" o-- "0..*" Membership
+Visitor "1" o-- "0..*" Device
+
+Repair <-- RepairService : <<create>>
+Visitor <-- VisitorService : <<create>>
+Membership <-- VisitorService : <<create>>
+Device <-- DeviceService : <<create>>
+Repairer <-- RepairerService : <<create>>
+
+IDeviceApi <|-- DeviceService : extends
+IRepairApi <|-- RepairService : extends
+IRepairerApi <|-- RepairerService : extends
+IVisitorApi <|-- VisitorService : extends
+
+DeviceService o-- IDeviceDB : <<use>>
+DeviceService o-- IRepairDB : <<use>>
+RepairService o-- IRepairDB : <<use>>
+RepairerService o-- IRepairerDB : <<use>>
+VisitorService o-- IVisitorDB : <<use>>
+VisitorService o-- IMembershipDB : <<use>>
+VisitorService o-- IDeviceDB : <<use>>
+@enduml

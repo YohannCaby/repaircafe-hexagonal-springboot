@@ -1,0 +1,25 @@
+@startuml
+actor "reception" as user
+usecase UC0 as "Find a Visitor"
+usecase UC1 as "Register new Visitor"
+usecase UC2 as "Register new Repairer"
+usecase UC3 as "Register new Device"
+usecase UC4 as "Register new Repair"
+usecase UC5 as "Register new Membership"
+usecase UC6 as "Can check is the las membership
+is valid and how many it paid"
+usecase UC7 as "Can modify a repair"
+usecase UC8 as "Can modifiy a Visitor"
+usecase UC9 as "Can modifiy a Repairer"
+
+user --> UC0
+user --> UC1
+user --> UC2
+user --> UC3
+user --> UC4
+user --> UC5
+user --> UC6
+user --> UC7
+user --> UC8
+user --> UC9
+@enduml
