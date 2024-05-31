@@ -1,0 +1,60 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "repair-cafe",
+    "collectionId": "9b253718-eca0-41d8-a2eb-c01a6af705cd",
+    "dateExported": "2024-05-31T14:17:58.149Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "8d10acb5-b28c-49e7-8a3c-961d31d6b89d",
+            "colId": "9b253718-eca0-41d8-a2eb-c01a6af705cd",
+            "containerId": "",
+            "name": "search members",
+            "url": "{{protocol}}://{{host}}:{{port}}/members?search=CABY",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-05-31T13:35:42.810Z",
+            "modified": "2024-05-31T13:48:26.845Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "search",
+                    "value": "CABY",
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "f1b27985-1092-4ed5-a837-ac097599bae0",
+            "colId": "9b253718-eca0-41d8-a2eb-c01a6af705cd",
+            "containerId": "",
+            "name": "create update member",
+            "url": "{{protocol}}://{{host}}:{{port}}/members",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-05-31T14:15:59.027Z",
+            "modified": "2024-05-31T14:17:30.813Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"TISSERAND\",\n  \"surname\":\"Armelle\",\n  \"birthYear\":1988\n}",
+                "form": []
+            }
+        }
+    ],
+    "settings": {
+        "headers": [
+            {
+                "name": "Content-Type",
+                "value": "application/json"
+            },
+            {
+                "name": "Accept",
+                "value": "*/*"
+            }
+        ],
+        "envId": "fc2e9021-b952-41e3-ae28-48b3d138f61a"
+    },
+    "ref": "CncyGdkPC3MnF3yYjDFUcJ-EIQUvyFnsbdvJS5UawPFtqj4bFlQJc1yIBp3l4lLVgSLZjYLqEsaGBzQHk2z47g"
+}
