@@ -2,7 +2,7 @@ package fr.ycaby.repaircafe.infrastrucure.secondary.db;
 
 import fr.ycaby.repaircafe.core.model.Device;
 import fr.ycaby.repaircafe.core.model.Member;
-import fr.ycaby.repaircafe.core.port.persistence.DeviceRepoPort;
+import fr.ycaby.repaircafe.core.port.persistence.port.DeviceRepoPort;
 import java.util.List;
 import org.springframework.stereotype.Service;
 

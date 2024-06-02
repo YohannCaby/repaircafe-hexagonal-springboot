@@ -6,12 +6,10 @@ import fr.ycaby.repaircafe.core.model.Membership;
 
 import java.util.List;
 
-public interface IMemberRepo {
+public interface MemberRepo {
     Member findBySerialNumber(String serialNumber);
 
     List<Member> search(String label);
-
-    Member createOrUpdate(Member member);
 
     Membership updateMemberMembership(Member member, Membership membership);
 
@@ -28,4 +26,8 @@ public interface IMemberRepo {
     MemberRoleEnum addMemberRole(Member member, MemberRoleEnum role);
 
     List<MemberRoleEnum> getAllRoles();
+
+    Member create(Member member);
+
+    Member update(Member member);
 }

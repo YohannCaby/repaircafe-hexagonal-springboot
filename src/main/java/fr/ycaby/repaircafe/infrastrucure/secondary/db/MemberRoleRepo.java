@@ -2,7 +2,7 @@ package fr.ycaby.repaircafe.infrastrucure.secondary.db;
 
 import fr.ycaby.repaircafe.core.model.Member;
 import fr.ycaby.repaircafe.core.model.MemberRoleEnum;
-import fr.ycaby.repaircafe.core.port.persistence.MemberRoleRepoPort;
+import fr.ycaby.repaircafe.core.port.persistence.port.MemberRoleRepoPort;
 import java.util.List;
 import org.springframework.stereotype.Service;
 

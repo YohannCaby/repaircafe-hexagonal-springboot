@@ -1,4 +1,4 @@
-package fr.ycaby.repaircafe.core.port.persistence;
+package fr.ycaby.repaircafe.core.port.persistence.port;
 
 import java.util.List;
 

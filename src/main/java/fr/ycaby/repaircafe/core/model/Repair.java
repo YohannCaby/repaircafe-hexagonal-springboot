@@ -10,16 +10,10 @@ public class Repair implements Comparable<Repair>{
     long repairTime;
     RepairStatus repairStatus;
     String description;
-    Device device;
-    Member visitor;
 
     public Repair(Member repairer, Device device, Member visitor) {
         this.repairer = repairer;
         this.repairStatus = RepairStatus.UNKNOWN;
-        this.device = device;
-        this.visitor = visitor;
-
-
     }
 
     @Override

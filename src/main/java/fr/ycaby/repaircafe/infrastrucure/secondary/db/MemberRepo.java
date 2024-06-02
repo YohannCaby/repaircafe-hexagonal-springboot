@@ -1,7 +1,7 @@
 package fr.ycaby.repaircafe.infrastrucure.secondary.db;
 
 import fr.ycaby.repaircafe.core.model.Member;
-import fr.ycaby.repaircafe.core.port.persistence.MemberRepoPort;
+import fr.ycaby.repaircafe.core.port.persistence.port.MemberRepoPort;
 import fr.ycaby.repaircafe.infrastrucure.secondary.db.mapper.MemberEntityMapper;
 import fr.ycaby.repaircafe.infrastrucure.secondary.db.repo.MemberJpaRepo;
 

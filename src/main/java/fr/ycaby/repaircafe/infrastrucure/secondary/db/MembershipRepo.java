@@ -5,7 +5,7 @@ import fr.ycaby.repaircafe.core.model.Membership;
 import fr.ycaby.repaircafe.infrastrucure.secondary.db.entities.MembershipEntity;
 import fr.ycaby.repaircafe.infrastrucure.secondary.db.mapper.MembershipEntityMapper;
 import fr.ycaby.repaircafe.infrastrucure.secondary.db.repo.MembershipJpaRepo;
-import fr.ycaby.repaircafe.core.port.persistence.MembershipRepoPort;
+import fr.ycaby.repaircafe.core.port.persistence.port.MembershipRepoPort;
 
 import java.util.List;
 import org.springframework.stereotype.Service;

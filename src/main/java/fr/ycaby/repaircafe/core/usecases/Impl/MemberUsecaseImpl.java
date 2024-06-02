@@ -1,33 +1,22 @@
 package fr.ycaby.repaircafe.core.usecases.Impl;
 
+import fr.ycaby.repaircafe.core.exception.*;
 import fr.ycaby.repaircafe.core.model.Member;
 import fr.ycaby.repaircafe.core.model.MemberRoleEnum;
 import fr.ycaby.repaircafe.core.model.Membership;
-import fr.ycaby.repaircafe.core.exception.MemberRoleAlreadyPresentException;
-import fr.ycaby.repaircafe.core.exception.MembershipAlreadyPresentException;
-import fr.ycaby.repaircafe.core.exception.NoMemberMembershipPresentException;
-import fr.ycaby.repaircafe.core.exception.NoMemberRolePresentExpception;
-import fr.ycaby.repaircafe.core.usecases.IMemberApi;
-import fr.ycaby.repaircafe.core.port.persistence.IMemberRepo;
+import fr.ycaby.repaircafe.core.usecases.MemberUseCase;
+import fr.ycaby.repaircafe.core.port.persistence.MemberRepo;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MemberUsecase implements IMemberApi {
+public class MemberUsecaseImpl implements MemberUseCase {
 
-    private final IMemberRepo memberRepo;
+    private final MemberRepo memberRepo;
 
-    public MemberUsecase(IMemberRepo memberRepo){
+    public MemberUsecaseImpl(MemberRepo memberRepo){
         this.memberRepo = memberRepo;
-    }
-
-    @Override
-    public Member saveOrUpdateMember(Member member) {
-        if(Objects.isNull(member.getSerialNumber()) || !member.getSerialNumber().isEmpty()){
-            member.genSerialNumber();
-        }
-        return memberRepo.createOrUpdate(member);
     }
 
     @Override
@@ -71,6 +60,24 @@ public class MemberUsecase implements IMemberApi {
         } else {
             return members;
         }
+    }
+
+    @Override
+    public Member updateMember(Member member) throws MemberAbsentException {
+        if(Objects.isNull(member.getSerialNumber()) || !member.getSerialNumber().isEmpty()){
+            throw new MemberAbsentException("Member doesn't exist, cannot be updated");
+        }
+
+        return memberRepo.update(member);
+    }
+
+    @Override
+    public Member createMember(Member member) throws MemberAlreadyPresentException {
+        if(Objects.isNull(member.getSerialNumber()) || !member.getSerialNumber().isEmpty()){
+            member.genSerialNumber();
+        } else
+            throw new MemberAlreadyPresentException("Member with serial number " + member.getSerialNumber() + " already exist.");
+        return memberRepo.create(member);
     }
 
     public Member addMembership(Member member, Membership membership) throws MembershipAlreadyPresentException {
