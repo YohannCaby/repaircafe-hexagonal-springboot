@@ -1,17 +1,15 @@
 package fr.ycaby.repaircafe.core.usecases.Impl;
 
+import fr.ycaby.repaircafe.core.port.persistence.DeviceRepo;
 import fr.ycaby.repaircafe.core.port.persistence.port.DeviceRepoPort;
 import fr.ycaby.repaircafe.core.port.persistence.port.RepairRepoPort;
 
 public class DeviceUseCaseImpl implements fr.ycaby.repaircafe.core.usecases.DeviceUseCase {
 
-    private final DeviceRepoPort deviceRepo;
-    private final RepairRepoPort repairRepo;
+    private final DeviceRepo deviceRepo;
 
-    public DeviceUseCaseImpl(DeviceRepoPort deviceRepo, RepairRepoPort repairRepo) {
+
+    public DeviceUseCaseImpl(DeviceRepo deviceRepo) {
         this.deviceRepo = deviceRepo;
-        this.repairRepo = repairRepo;
     }
-
-
 }

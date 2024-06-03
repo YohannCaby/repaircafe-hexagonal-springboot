@@ -45,8 +45,6 @@ package "core.model"{
         long repairTime
         RepairStatus repairStatus
         String description
-        Device device
-        Member visitor
     }
     enum RepairStatus{
         REPAIRED,
@@ -65,8 +63,6 @@ package "core.model"{
 
     Repair o-- RepairStatus
     Repair o-- Member
-    Repair o-- Member
-    Repair o-- Device
 
     Member o-- MemberRole
     Member o-- Membership

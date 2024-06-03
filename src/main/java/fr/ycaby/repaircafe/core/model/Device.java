@@ -1,6 +1,6 @@
 package fr.ycaby.repaircafe.core.model;
 
-import fr.ycaby.repaircafe.core.exception.NoRepairListException;
+import fr.ycaby.repaircafe.core.exception.RepairListAbsentException;
 import lombok.Data;
 
 import java.util.List;
@@ -21,12 +21,12 @@ public class Device {
         this.weight = weight;
     }
 
-    public RepairStatus getCurrentKnowRepairStatus() throws NoRepairListException {
+    public RepairStatus getCurrentKnowRepairStatus() throws RepairListAbsentException {
         if(Objects.isNull(getRepairList())) {
-            throw new NoRepairListException("No repair list for device " + getName());
+            throw new RepairListAbsentException("No repair list for device " + getName());
         }
         if(getRepairList().isEmpty()){
-            throw new NoRepairListException("Repair list is empty for device " + getName());
+            throw new RepairListAbsentException("Repair list is empty for device " + getName());
         }
         return getRepairList().stream().sorted().toList().getFirst().getRepairStatus();
     }

@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MemberUsecaseImpl implements MemberUseCase {
+public class MemberUseCaseImpl implements MemberUseCase {
 
     private final MemberRepo memberRepo;
 
-    public MemberUsecaseImpl(MemberRepo memberRepo){
+    public MemberUseCaseImpl(MemberRepo memberRepo){
         this.memberRepo = memberRepo;
     }
 
@@ -35,10 +35,10 @@ public class MemberUsecaseImpl implements MemberUseCase {
     }
 
     @Override
-    public Member removeRole(Member member, MemberRoleEnum role) throws NoMemberRolePresentExpception {
+    public Member removeRole(Member member, MemberRoleEnum role) throws MemberRoleAbsentExpception {
         List<MemberRoleEnum> roles = memberRepo.getMemberRoles(member);
         if(roles.stream().noneMatch(o -> o.equals(role))){
-            throw new NoMemberRolePresentExpception("Member serial number : "+ member.getSerialNumber() + " has no role : " + role);
+            throw new MemberRoleAbsentExpception("Member serial number : "+ member.getSerialNumber() + " has no role : " + role);
         }
         member.getRoles().remove(memberRepo.removeMemberRole(member,role));
         return member;
@@ -89,13 +89,13 @@ public class MemberUsecaseImpl implements MemberUseCase {
         return member;
     }
 
-    public Member updateMembership(Member member, Membership membership) throws NoMemberMembershipPresentException{
+    public Member updateMembership(Member member, Membership membership) throws MemberMembershipAbsentException {
         if(memberRepo.isMemberMembership(member,membership)){
             member.getMembershipList().remove(membership);
             member.getMembershipList().add(membership);
             memberRepo.updateMemberMembership(member,membership);
         } else {
-            throw new NoMemberMembershipPresentException("Member serial number : "+ member.getSerialNumber() + " has no membership to date : " + membership.getDate());
+            throw new MemberMembershipAbsentException("Member serial number : "+ member.getSerialNumber() + " has no membership to date : " + membership.getDate());
         }
         return member;
     }

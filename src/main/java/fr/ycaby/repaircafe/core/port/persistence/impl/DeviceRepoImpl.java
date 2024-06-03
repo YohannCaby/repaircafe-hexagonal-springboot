@@ -1,6 +1,6 @@
 package fr.ycaby.repaircafe.core.port.persistence.impl;
 
-import fr.ycaby.repaircafe.core.exception.NoRepairPresentException;
+import fr.ycaby.repaircafe.core.exception.RepairAbsentException;
 import fr.ycaby.repaircafe.core.exception.RepairAlreadyPresentException;
 import fr.ycaby.repaircafe.core.model.Device;
 import fr.ycaby.repaircafe.core.model.Member;
@@ -59,11 +59,11 @@ public class DeviceRepoImpl implements fr.ycaby.repaircafe.core.port.persistence
     }
 
     @Override
-    public Device updateRepair(Device device, Repair repair) throws NoRepairPresentException {
+    public Device updateRepair(Device device, Repair repair) throws RepairAbsentException {
         if(repairRepo.isFromExist(device,repair)){
             device.getRepairList().remove(repair);
             device.getRepairList().add(repairRepo.updateFrom(device,repair));
-        } else throw new NoRepairPresentException("No reparation for device : " + device.getName());
+        } else throw new RepairAbsentException("No reparation for device : " + device.getName());
         return device;
     }
 }
