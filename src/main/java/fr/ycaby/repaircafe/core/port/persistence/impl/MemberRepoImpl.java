@@ -1,9 +1,13 @@
 package fr.ycaby.repaircafe.core.port.persistence.impl;
 
+import fr.ycaby.repaircafe.core.exception.MemberRoleAbsentExpception;
+import fr.ycaby.repaircafe.core.exception.MemberRoleAlreadyPresentException;
+import fr.ycaby.repaircafe.core.exception.MembershipAlreadyPresentException;
 import fr.ycaby.repaircafe.core.model.Device;
 import fr.ycaby.repaircafe.core.model.MemberRoleEnum;
 import fr.ycaby.repaircafe.core.model.Member;
 import fr.ycaby.repaircafe.core.model.Membership;
+import fr.ycaby.repaircafe.core.port.persistence.MemberRepo;
 import fr.ycaby.repaircafe.core.port.persistence.port.DeviceRepoPort;
 import fr.ycaby.repaircafe.core.port.persistence.port.MemberRepoPort;
 import fr.ycaby.repaircafe.core.port.persistence.port.MemberRoleRepoPort;
@@ -12,26 +16,18 @@ import fr.ycaby.repaircafe.core.port.persistence.port.MembershipRepoPort;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemberRepoImpl implements fr.ycaby.repaircafe.core.port.persistence.MemberRepo {
+public class MemberRepoImpl implements MemberRepo {
     private final MemberRepoPort memberRepo;
     private final MembershipRepoPort membershipRepo;
     private final MemberRoleRepoPort roleRepo;
     private final DeviceRepoPort deviceRepo;
-
+    private final static String SERIAL_NUMBER = "Member serial number : ";
 
     public MemberRepoImpl(MemberRepoPort memberRepo, MembershipRepoPort membershipRepo, MemberRoleRepoPort memberRoleRepo, DeviceRepoPort deviceRepo) {
         this.memberRepo = memberRepo;
         this.membershipRepo = membershipRepo;
         this.roleRepo = memberRoleRepo;
         this.deviceRepo = deviceRepo;
-    }
-    @Override
-    public Member findBySerialNumber(String serialNumber) {
-        Member member = memberRepo.findBySerialNumber(serialNumber);
-        member.setMembershipList(membershipRepo.getFrom(member));
-        member.setDeviceList(deviceRepo.getFrom(member));
-        member.setRoles(roleRepo.getFrom(member));
-        return member;
     }
 
     @Override
@@ -46,7 +42,8 @@ public class MemberRepoImpl implements fr.ycaby.repaircafe.core.port.persistence
     }
 
     @Override
-    public Membership updateMemberMembership(Member member, Membership membership) {
+    public Membership updateMemberMembership(Member member, Membership membership)
+            throws MemberRoleAlreadyPresentException {
         return membershipRepo.updateFrom(member,membership);
 
     }
@@ -57,27 +54,31 @@ public class MemberRepoImpl implements fr.ycaby.repaircafe.core.port.persistence
     }
 
     @Override
-    public Membership addMemberMembership(Member member, Membership membership) {
+    public Membership addMemberMembership(Member member, Membership membership)
+            throws MembershipAlreadyPresentException {
+        List<Membership> memberships = membershipRepo.getFrom(member);
+        if(memberships.stream().anyMatch(o -> o.equals(membership))){
+            throw new MembershipAlreadyPresentException(SERIAL_NUMBER+ member.getSerialNumber() + " has already membership to date : " + membership.getDate());
+        }
         return membershipRepo.createFrom(member,membership);
     }
 
     @Override
-    public List<MemberRoleEnum> getMemberRoles(Member member) {
-        return roleRepo.getFrom(member);
-    }
-
-    @Override
-    public List<Membership> getMemberMemberships(Member member) {
-        return membershipRepo.getFrom(member);
-    }
-
-    @Override
-    public MemberRoleEnum removeMemberRole(Member member, MemberRoleEnum role) {
+    public MemberRoleEnum removeMemberRole(Member member, MemberRoleEnum role)
+            throws MemberRoleAbsentExpception {
+        List<MemberRoleEnum> roles = roleRepo.getFrom(member);
+        if(roles.stream().noneMatch(o -> o.equals(role))){
+            throw new MemberRoleAbsentExpception(SERIAL_NUMBER+ member.getSerialNumber() + " has no role : " + role);
+        }
         return roleRepo.removeFrom(member,role);
     }
 
     @Override
     public MemberRoleEnum addMemberRole(Member member, MemberRoleEnum role) {
+        List<MemberRoleEnum> roles = roleRepo.getFrom(member);
+        if(roles.stream().anyMatch(o -> o.equals(role))){
+            throw new MemberRoleAlreadyPresentException(SERIAL_NUMBER+ member.getSerialNumber() + " has already role : " + role);
+        }
         return roleRepo.createFrom(member,role);
     }
 

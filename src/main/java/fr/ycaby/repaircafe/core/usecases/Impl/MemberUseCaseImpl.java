@@ -24,53 +24,49 @@ public class MemberUseCaseImpl implements MemberUseCase {
         return memberRepo.getAllRoles();
     }
 
+    /**
+     * Add a role to a member : UC 11
+     * @param member
+     * @param role
+     * @return
+     * @throws MemberRoleAlreadyPresentException
+     */
     @Override
     public Member addRole(Member member, MemberRoleEnum role) throws MemberRoleAlreadyPresentException {
-        List<MemberRoleEnum> roles = memberRepo.getMemberRoles(member);
-        if(roles.stream().anyMatch(o -> o.equals(role))){
-            throw new MemberRoleAlreadyPresentException("Member serial number : "+ member.getSerialNumber() + " has already role : " + role);
-        }
         member.getRoles().add(memberRepo.addMemberRole(member,role));
         return member;
     }
 
+    /**
+     * Remove a role from a member : UC 12
+     * @param member
+     * @param role
+     * @return
+     * @throws MemberRoleAbsentExpception
+     */
     @Override
     public Member removeRole(Member member, MemberRoleEnum role) throws MemberRoleAbsentExpception {
-        List<MemberRoleEnum> roles = memberRepo.getMemberRoles(member);
-        if(roles.stream().noneMatch(o -> o.equals(role))){
-            throw new MemberRoleAbsentExpception("Member serial number : "+ member.getSerialNumber() + " has no role : " + role);
-        }
         member.getRoles().remove(memberRepo.removeMemberRole(member,role));
         return member;
     }
 
-    @Override
-    public Member findBySerialNumber(String serialNumber) {
-        Member member = memberRepo.findBySerialNumber(serialNumber);
-        member.setMembershipList(memberRepo.getMemberMemberships(member));
-        member.setRoles(memberRepo.getMemberRoles(member));
-        return member;
-    }
-
+    /**
+     * Search for a member by label : UC 00
+     * @param label: part of name or surname
+     * @return
+     */
     @Override
     public List<Member> search(String label) {
         List<Member> members = memberRepo.search(label);
-        if(members == null){
-            return new ArrayList<>();
-        } else {
-            return members;
-        }
+        return Objects.requireNonNullElseGet(members, ArrayList::new);
     }
 
-    @Override
-    public Member updateMember(Member member) throws MemberAbsentException {
-        if(Objects.isNull(member.getSerialNumber()) || !member.getSerialNumber().isEmpty()){
-            throw new MemberAbsentException("Member doesn't exist, cannot be updated");
-        }
-
-        return memberRepo.update(member);
-    }
-
+    /**
+     * Create a member : UC 01
+     * @param member
+     * @return
+     * @throws MemberAlreadyPresentException
+     */
     @Override
     public Member createMember(Member member) throws MemberAlreadyPresentException {
         if(Objects.isNull(member.getSerialNumber()) || !member.getSerialNumber().isEmpty()){
@@ -80,25 +76,49 @@ public class MemberUseCaseImpl implements MemberUseCase {
         return memberRepo.create(member);
     }
 
-    public Member addMembership(Member member, Membership membership) throws MembershipAlreadyPresentException {
-        List<Membership> memberships = memberRepo.getMemberMemberships(member);
-        if(memberships.stream().anyMatch(o -> o.equals(membership))){
-            throw new MembershipAlreadyPresentException("Member serial number : "+ member.getSerialNumber() + " has already membership to date : " + membership.getDate());
+    /**
+     * Update a memeber : UC07
+     * @param member
+     * @return
+     * @throws MemberAbsentException
+     */
+    @Override
+    public Member updateMember(Member member) throws MemberAbsentException {
+        if(Objects.isNull(member.getSerialNumber()) || !member.getSerialNumber().isEmpty()){
+            throw new MemberAbsentException("Member doesn't exist, cannot be updated");
         }
+        return memberRepo.update(member);
+    }
+
+    /**
+     * Create new membership for a member : UC 05
+     * @param member
+     * @param membership
+     * @return
+     * @throws MembershipAlreadyPresentException
+     */
+    @Override
+    public Member addMembership(Member member, Membership membership) throws MembershipAlreadyPresentException {
         member.getMembershipList().add(memberRepo.addMemberMembership(member,membership));
         return member;
     }
 
+    /**
+     * Update a membership for a member : UC 10
+     * @param member
+     * @param membership
+     * @return
+     * @throws MemberMembershipAbsentException
+     */
+    @Override
     public Member updateMembership(Member member, Membership membership) throws MemberMembershipAbsentException {
         if(memberRepo.isMemberMembership(member,membership)){
             member.getMembershipList().remove(membership);
-            member.getMembershipList().add(membership);
-            memberRepo.updateMemberMembership(member,membership);
+            member.getMembershipList().add(memberRepo.updateMemberMembership(member,membership));
         } else {
             throw new MemberMembershipAbsentException("Member serial number : "+ member.getSerialNumber() + " has no membership to date : " + membership.getDate());
         }
         return member;
     }
-
 
 }

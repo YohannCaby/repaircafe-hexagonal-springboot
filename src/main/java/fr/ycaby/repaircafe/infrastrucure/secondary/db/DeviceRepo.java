@@ -33,4 +33,10 @@ public class DeviceRepo implements DeviceRepoPort {
     public Device removeFrom(Member member, Device o) {
         return null;
     }
+
+    @Override
+    public Boolean isDeviceExist(Device device) {
+        return true;
+    }
+
 }

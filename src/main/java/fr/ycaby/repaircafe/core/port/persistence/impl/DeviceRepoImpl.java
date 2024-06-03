@@ -1,5 +1,7 @@
 package fr.ycaby.repaircafe.core.port.persistence.impl;
 
+import fr.ycaby.repaircafe.core.exception.DeviceAbsentException;
+import fr.ycaby.repaircafe.core.exception.DeviceAlreadyPresentException;
 import fr.ycaby.repaircafe.core.exception.RepairAbsentException;
 import fr.ycaby.repaircafe.core.exception.RepairAlreadyPresentException;
 import fr.ycaby.repaircafe.core.model.Device;
@@ -17,6 +19,8 @@ public class DeviceRepoImpl implements fr.ycaby.repaircafe.core.port.persistence
 
     private final RepairRepoPort repairRepo;
 
+    private final static String DEVICE_NAMED= "Device named : ";
+    private final static String NOT_EXIST = " not exist";
     public DeviceRepoImpl(DeviceRepoPort deviceRepo, RepairRepoPort repairRepo) {
         this.deviceRepo = deviceRepo;
         this.repairRepo = repairRepo;
@@ -25,6 +29,8 @@ public class DeviceRepoImpl implements fr.ycaby.repaircafe.core.port.persistence
 
     @Override
     public Device create(Member member, Device device) {
+        if(deviceRepo.isFromExist(member,device))
+            throw new DeviceAlreadyPresentException(DEVICE_NAMED+ device.getName() + " already exist");
         Device response = deviceRepo.createFrom(member,device);
         List<Repair> repairs = new ArrayList<>();
         if(!device.getRepairList().isEmpty()){
@@ -38,6 +44,8 @@ public class DeviceRepoImpl implements fr.ycaby.repaircafe.core.port.persistence
 
     @Override
     public Device update(Member member, Device device) {
+        if(!deviceRepo.isFromExist(member,device))
+            throw new DeviceAbsentException(DEVICE_NAMED+ device.getName() + NOT_EXIST);
         Device response = deviceRepo.updateFrom(member,device);
         List<Repair> repairs = new ArrayList<>();
         if(!device.getRepairList().isEmpty()){
@@ -51,6 +59,9 @@ public class DeviceRepoImpl implements fr.ycaby.repaircafe.core.port.persistence
 
     @Override
     public Device addRepair(Device device, Repair repair) throws RepairAlreadyPresentException {
+        if(!deviceRepo.isDeviceExist(device)){
+            throw new DeviceAbsentException(DEVICE_NAMED+ device.getName() + NOT_EXIST);
+        }
         List<Repair> repairs = repairRepo.getFrom(device);
         if(repairs.stream().anyMatch(o -> o.equals(repair)))
             throw new RepairAlreadyPresentException("Repair already exist for Device :" + device.getName());
@@ -60,6 +71,9 @@ public class DeviceRepoImpl implements fr.ycaby.repaircafe.core.port.persistence
 
     @Override
     public Device updateRepair(Device device, Repair repair) throws RepairAbsentException {
+        if(!deviceRepo.isDeviceExist(device)){
+            throw new DeviceAbsentException(DEVICE_NAMED+ device.getName() + NOT_EXIST);
+        }
         if(repairRepo.isFromExist(device,repair)){
             device.getRepairList().remove(repair);
             device.getRepairList().add(repairRepo.updateFrom(device,repair));

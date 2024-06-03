@@ -1,5 +1,8 @@
 package fr.ycaby.repaircafe.core.port.persistence;
 
+import fr.ycaby.repaircafe.core.exception.MemberRoleAbsentExpception;
+import fr.ycaby.repaircafe.core.exception.MemberRoleAlreadyPresentException;
+import fr.ycaby.repaircafe.core.exception.MembershipAlreadyPresentException;
 import fr.ycaby.repaircafe.core.model.Member;
 import fr.ycaby.repaircafe.core.model.MemberRoleEnum;
 import fr.ycaby.repaircafe.core.model.Membership;
@@ -7,21 +10,16 @@ import fr.ycaby.repaircafe.core.model.Membership;
 import java.util.List;
 
 public interface MemberRepo {
-    Member findBySerialNumber(String serialNumber);
 
     List<Member> search(String label);
 
-    Membership updateMemberMembership(Member member, Membership membership);
+    Membership updateMemberMembership(Member member, Membership membership) throws MemberRoleAlreadyPresentException;
 
     boolean isMemberMembership(Member member, Membership membership);
 
-    Membership addMemberMembership(Member member, Membership membership);
+    Membership addMemberMembership(Member member, Membership membership) throws MembershipAlreadyPresentException;
 
-    List<MemberRoleEnum> getMemberRoles(Member member);
-
-    List<Membership> getMemberMemberships(Member member);
-
-    MemberRoleEnum removeMemberRole(Member member, MemberRoleEnum role);
+    MemberRoleEnum removeMemberRole(Member member, MemberRoleEnum role) throws MemberRoleAbsentExpception;
 
     MemberRoleEnum addMemberRole(Member member, MemberRoleEnum role);
 

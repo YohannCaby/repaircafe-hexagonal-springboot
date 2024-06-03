@@ -1,25 +1,28 @@
 @startuml
 actor "reception" as user
 usecase UC0 as "Find a Visitor"
-usecase UC1 as "Register new Visitor"
-usecase UC2 as "Register new Repairer"
+usecase UC1 as "Register new Member"
 usecase UC3 as "Register new Device"
 usecase UC4 as "Register new Repair"
 usecase UC5 as "Register new Membership"
 usecase UC6 as "Can check is the las membership
 is valid and how many it paid"
-usecase UC7 as "Can modify a repair"
-usecase UC8 as "Can modifiy a Visitor"
-usecase UC9 as "Can modifiy a Repairer"
-
-user --> UC0
-user --> UC1
-user --> UC2
-user --> UC3
-user --> UC4
-user --> UC5
+usecase UC7 as "Can modify a Member"
+usecase UC8 as "Can modifiy a Device"
+usecase UC9 as "Can modifiy a Repair"
+usecase UC10 as "Can modifiy a Membership"
+usecase UC11 as "Can add Role to member"
+usecase UC12 as "Can remove Role to member"
+user --> UC0 : UC00
+user --> UC1 : UC01
+user --> UC3 : UC03
+user --> UC4 : UC04
+user --> UC5 : UC05
 user --> UC6
-user --> UC7
-user --> UC8
-user --> UC9
+user --> UC7 : UC07
+user --> UC8 : UC08
+user --> UC9 : UC09
+user --> UC10 : UC10
+user --> UC11 : UC11
+user --> UC12 : UC12
 @enduml
