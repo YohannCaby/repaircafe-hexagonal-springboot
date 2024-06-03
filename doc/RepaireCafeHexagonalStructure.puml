@@ -14,6 +14,22 @@ package "core.port.persistence"{
     }
     MemberRepoPort <|-- MemberRepo
 }
+package "core.usecases"{
+    interface MemberUseCase{
+            Member saveOrUpdateMember(Member member)
+            Member addRole(Member member, MemberRoleEnum role) throws MemberRoleAlreadyPresentException
+            List<MemberRoleEnum> getRoles()
+            Member removeRole(Member member, MemberRoleEnum role) throws NoMemberRolePresentExpception
+            Member findBySerialNumber(String serialNumber)
+            List<Member> search(String label)
+    }
+    package "core.usecases.impl"{
+        class MemberUseCaseImpl
+    }
+
+    MemberUseCase <|-- MemberUseCaseImpl
+    MemberUseCaseImpl o-- MemberRepoPort
+}
 package "core.exception" {
     exception BusinessExceptions
 }
@@ -67,27 +83,17 @@ package "core.model"{
     Member o-- MemberRole
     Member o-- Membership
     Member o-- Device
+
+    Device o-- Repair
 }
 
-package "core.usecases"{
-    interface IMemberApi{
-            Member saveOrUpdateMember(Member member)
-            Member addRole(Member member, MemberRoleEnum role) throws MemberRoleAlreadyPresentException
-            List<MemberRoleEnum> getRoles()
-            Member removeRole(Member member, MemberRoleEnum role) throws NoMemberRolePresentExpception
-            Member findBySerialNumber(String serialNumbe)
-            List<Member> search(String label)
-    }
-    package "core.usecases.impl"{
-        class MemberService
-    }
 
-    IMemberApi <|-- MemberService
-}
 
 package "infrastrucure.primary.rest"{
     class MemberRestControlerImpl<@RestController>
-    MemberRestControlerImpl o-- IMemberApi
+    class GlobalExceptionHandler<@ControllerAdvice>
+    MemberRestControlerImpl o-- MemberUseCase
+    BusinessExceptions <-- GlobalExceptionHandler : <<use>>
 }
 
 package "infrastrucure.secondary.db"{
