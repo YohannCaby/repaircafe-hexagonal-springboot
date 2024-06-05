@@ -3,14 +3,10 @@ package fr.ycaby.repaircafe.core.model;
 import fr.ycaby.repaircafe.core.exception.RepairListAbsentException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
 import lombok.Data;
 
 import java.util.List;
 import java.util.Objects;
-import org.apache.catalina.util.StringUtil;
-import org.mapstruct.ap.internal.util.Strings;
-import org.springframework.util.StringUtils;
 
 @Data
 public class Device {
@@ -33,7 +29,7 @@ public class Device {
         this.weight = weight;
     }
 
-    public RepairStatus getCurrentKnowRepairStatus() throws RepairListAbsentException {
+    public RepairStatusEnum getCurrentKnowRepairStatus() throws RepairListAbsentException {
         if(Objects.isNull(getRepairList())) {
             throw new RepairListAbsentException("No repair list for device " + getName());
         }

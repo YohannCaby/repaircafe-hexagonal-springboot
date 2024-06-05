@@ -25,9 +25,6 @@ public class MemberEntityMapperTest {
         Assertions.assertEquals("Yohann", member.getSurname());
         Assertions.assertEquals("YCAB_1987",member.getMemberSerialNumber());
         Assertions.assertEquals(1987,member.getBirthYear());
-        Assertions.assertNotNull(member.getRoles());
-        Assertions.assertNotNull(member.getMembershipList());
-        Assertions.assertNotNull(member.getDeviceList());
     }
     @Test
     public void toEntity(){

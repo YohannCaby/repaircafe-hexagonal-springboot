@@ -1,6 +1,6 @@
 package fr.ycaby.repaircafe.core.model;
 
-public enum RepairStatus {
+public enum RepairStatusEnum {
     REPAIRED,
     RUBISH,
     ADVICED,

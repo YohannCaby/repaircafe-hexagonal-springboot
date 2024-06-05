@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -16,13 +15,13 @@ public class Repair implements Comparable<Repair>{
     LocalDate date;
     Member repairer;
     long repairTime;
-    RepairStatus repairStatus;
+    RepairStatusEnum repairStatus;
     String description;
 
     public Repair(Member repairer,LocalDate date) {
         this.repairer = repairer;
         this.date = date;
-        this.repairStatus = RepairStatus.UNKNOWN;
+        this.repairStatus = RepairStatusEnum.UNKNOWN;
     }
 
     @Override
