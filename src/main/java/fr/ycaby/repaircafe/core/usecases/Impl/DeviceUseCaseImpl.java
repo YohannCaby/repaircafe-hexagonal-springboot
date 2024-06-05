@@ -32,14 +32,13 @@ public class DeviceUseCaseImpl implements DeviceUseCase {
 
     /**
      * Update a device : UC08
-     * @param member
      * @param device
      * @return
      * @throws DeviceAbsentException
      */
     @Override
-    public Device updateDevice(Member member, Device device) throws DeviceAbsentException {
-        return deviceRepo.update(member, device);
+    public Device updateDevice(Device device) throws DeviceAbsentException {
+        return deviceRepo.update(device);
     }
 
     /**

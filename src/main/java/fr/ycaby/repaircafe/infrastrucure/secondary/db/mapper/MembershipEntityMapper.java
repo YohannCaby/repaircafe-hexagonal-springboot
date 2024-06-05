@@ -9,10 +9,10 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring",injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface MembershipEntityMapper extends GenericSecondaryMapper<Membership,MembershipEntity> {
     @Override
-    @Mapping(target="membershipId.date", source="domain.date")
+    @Mapping(target="id.date", source="domain.date")
     MembershipEntity toEntity(Membership domain);
 
     @Override
-    @Mapping(target = "date", source="entity.membershipId.date")
+    @Mapping(target = "date", source="entity.id.date")
     Membership toDomain(MembershipEntity entity);
 }

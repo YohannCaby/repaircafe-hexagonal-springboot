@@ -110,7 +110,7 @@ package "infrastrucure.secondary.db"{
 package "configuration"{
     class BeanConfig<@Configuration>{
         MemberRepoPort memberRepoPort()
-        IMemberApi iMemberApi()
+        MemberUseCase memberUseCase()
     }
 }
 @enduml

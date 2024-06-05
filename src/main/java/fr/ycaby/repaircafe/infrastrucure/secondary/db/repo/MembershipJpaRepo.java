@@ -9,6 +9,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface MembershipJpaRepo extends CrudRepository<MembershipEntity, MembershipPK> {
-    @Query("SELECT m FROM MembershipEntity m WHERE m.membershipId.serialNumber = :serialNumber")
-    List<Membership> findBySerialNumber(String serialNumber);
+    @Query("SELECT m FROM MembershipEntity m WHERE m.id.memberSerialNumber = :memberSerialNumber")
+    List<MembershipEntity> findBySerialNumber(String serialNumber);
 }

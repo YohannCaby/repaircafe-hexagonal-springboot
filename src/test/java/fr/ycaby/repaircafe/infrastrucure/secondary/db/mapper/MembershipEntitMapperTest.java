@@ -24,7 +24,7 @@ public class MembershipEntitMapperTest {
         member.getMembershipList().add(membership);
         MembershipEntity entity = mapper.toEntity(membership);
 
-        Assertions.assertEquals(LocalDate.of(2024,5,21),entity.getMembershipId().getDate());
+        Assertions.assertEquals(LocalDate.of(2024,5,21),entity.getId().getDate());
         Assertions.assertEquals(7,entity.getPaid());
         Assertions.assertEquals(LocalDate.of(2025,5,21),entity.getExpiration());
     }
@@ -37,7 +37,7 @@ public class MembershipEntitMapperTest {
         MembershipPK id = new MembershipPK();
         id.setSerialNumber("YCAB_1987");
         id.setDate(LocalDate.of(2024,5,21));
-        entity.setMembershipId(id);
+        entity.setId(id);
 
         Membership member = mapper.toDomain(entity);
 

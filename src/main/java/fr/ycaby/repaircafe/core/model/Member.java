@@ -1,16 +1,22 @@
 package fr.ycaby.repaircafe.core.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Member {
     String name;
     String surname;
-    String serialNumber;
+    String memberSerialNumber;
     int birthYear;
     List<Device> deviceList;
     List<Membership> membershipList;
@@ -35,7 +41,7 @@ public class Member {
     }
 
     public void genSerialNumber(){
-        this.serialNumber = getSurname().substring(0,1).toUpperCase()
+        this.memberSerialNumber = getSurname().substring(0,1).toUpperCase()
                 + getName().substring(0,3).toUpperCase()
                 +"_"
                 + getBirthYear();

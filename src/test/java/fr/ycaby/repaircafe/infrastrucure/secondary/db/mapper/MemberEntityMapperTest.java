@@ -16,14 +16,14 @@ public class MemberEntityMapperTest {
         MemberEntitiy entitiy = new MemberEntitiy();
         entitiy.setName("CABY");
         entitiy.setSurname("Yohann");
-        entitiy.setSerialNumber("YCAB_1987");
+        entitiy.setMemberSerialNumber("YCAB_1987");
         entitiy.setBirthYear(1987);
 
         Member member = mapper.toDomain(entitiy);
 
         Assertions.assertEquals("CABY",member.getName());
         Assertions.assertEquals("Yohann", member.getSurname());
-        Assertions.assertEquals("YCAB_1987",member.getSerialNumber());
+        Assertions.assertEquals("YCAB_1987",member.getMemberSerialNumber());
         Assertions.assertEquals(1987,member.getBirthYear());
         Assertions.assertNotNull(member.getRoles());
         Assertions.assertNotNull(member.getMembershipList());
@@ -38,7 +38,7 @@ public class MemberEntityMapperTest {
         MemberEntitiy entitiy = mapper.toEntity(member);
         Assertions.assertEquals("CABY",entitiy.getName());
         Assertions.assertEquals("Yohann", entitiy.getSurname());
-        Assertions.assertEquals("YCAB_1987",entitiy.getSerialNumber());
+        Assertions.assertEquals("YCAB_1987",entitiy.getMemberSerialNumber());
         Assertions.assertEquals(1987,entitiy.getBirthYear());
 
 

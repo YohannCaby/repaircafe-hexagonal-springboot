@@ -6,9 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 
 @Entity
-@Builder
 @Data
-public class RoleEntity {
+@Builder
+public class RepairEntity {
     @EmbeddedId
-    RolePK id;
+    RepairPK id;
+    String repairer;
+    long repairTime;
+    String repairStatus;
+    String description;
 }

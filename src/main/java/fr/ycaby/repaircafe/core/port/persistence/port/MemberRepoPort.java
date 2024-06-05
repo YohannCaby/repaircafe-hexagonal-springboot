@@ -10,8 +10,6 @@ public interface MemberRepoPort {
 
     List<Member> search(String label);
 
-    Member save(Member o);
-
     boolean isExist(Member o);
 
     Member update(Member o);

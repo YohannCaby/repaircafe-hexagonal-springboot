@@ -4,17 +4,17 @@ public class MemberTest {
     /*@Test
     public void VisitorConstructorTest(){
         Visitor visitor = new Visitor("CABY","Yohann",1987);
-        Assertions.assertEquals("VIS_YCAB_1987",visitor.getSerialNumber());
+        Assertions.assertEquals("VIS_YCAB_1987",visitor.getMemberSerialNumber());
     }
     @Test
     public void RepairerConstructorTest(){
         Repairer repairer = new Repairer("CABY","Yohann",1987);
-        Assertions.assertEquals("REP_YCAB",repairer.getSerialNumber());
+        Assertions.assertEquals("REP_YCAB",repairer.getMemberSerialNumber());
     }
     @Test
     public void ReceptionistConstructorTest(){
         Receptionist repairer = new Receptionist("CABY","Yohann",1987);
-        Assertions.assertEquals("REP_YCAB",repairer.getSerialNumber());
+        Assertions.assertEquals("REP_YCAB",repairer.getMemberSerialNumber());
     }
     @Test
     public void MembershipTest(){

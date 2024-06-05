@@ -22,13 +22,13 @@ public class MembershipRepo implements MembershipRepoPort {
 
     @Override
     public List<Membership> getFrom(Member member) {
-        return membershipJpaRepo.findBySerialNumber(member.getSerialNumber());
+        return membershipJpaRepo.findBySerialNumber(member.getMemberSerialNumber()).stream().map(mapper::toDomain).toList();
     }
 
     @Override
     public boolean isFromExist(Member member, Membership membership) {
         MembershipEntity entity = mapToEntity(member,membership);
-        return membershipJpaRepo.existsById(entity.getMembershipId());
+        return membershipJpaRepo.existsById(entity.getId());
     }
 
     @Override
@@ -50,7 +50,7 @@ public class MembershipRepo implements MembershipRepoPort {
 
     private MembershipEntity mapToEntity(Member member, Membership membership){
         MembershipEntity membershipEntity = mapper.toEntity(membership);
-        membershipEntity.getMembershipId().setSerialNumber(member.getSerialNumber());
+        membershipEntity.getId().setSerialNumber(member.getMemberSerialNumber());
         return membershipEntity;
     }
 

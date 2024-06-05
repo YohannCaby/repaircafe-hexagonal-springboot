@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 public class MembershipEntity {
     @EmbeddedId
-    MembershipPK membershipId;
+    MembershipPK id;
     LocalDate expiration;
     float paid;
 }

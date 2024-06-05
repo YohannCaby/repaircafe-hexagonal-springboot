@@ -31,23 +31,22 @@ public class MemberRepo implements MemberRepoPort {
                 .toList();
     }
 
-    @Override
-    public Member save(Member o) {
+    private Member createOrUpdate(Member o) {
         return mapper.toDomain(memberJpaRepo.save(mapper.toEntity(o)));
     }
 
     @Override
     public boolean isExist(Member o) {
-        return memberJpaRepo.existsBySerialNumber(o.getSerialNumber());
+        return memberJpaRepo.existsBySerialNumber(o.getMemberSerialNumber());
     }
 
     @Override
     public Member update(Member o) {
-        return save(o);
+        return createOrUpdate(o);
     }
 
     @Override
     public Member create(Member o) {
-        return save(o);
+        return createOrUpdate(o);
     }
 }

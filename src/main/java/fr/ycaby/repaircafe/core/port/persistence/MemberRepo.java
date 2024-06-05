@@ -23,8 +23,6 @@ public interface MemberRepo {
 
     MemberRoleEnum addMemberRole(Member member, MemberRoleEnum role);
 
-    List<MemberRoleEnum> getAllRoles();
-
     Member create(Member member);
 
     Member update(Member member);

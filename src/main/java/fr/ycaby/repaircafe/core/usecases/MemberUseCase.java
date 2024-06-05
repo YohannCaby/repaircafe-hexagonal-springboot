@@ -14,7 +14,6 @@ import java.util.List;
 
 public interface MemberUseCase {
     Member addRole(Member member, MemberRoleEnum role) throws MemberRoleAlreadyPresentException;
-    List<MemberRoleEnum> getRoles();
     Member removeRole(Member member, MemberRoleEnum role) throws MemberRoleAbsentExpception;
     List<Member> search(String label);
     Member updateMember(Member domain) throws MemberAbsentException;

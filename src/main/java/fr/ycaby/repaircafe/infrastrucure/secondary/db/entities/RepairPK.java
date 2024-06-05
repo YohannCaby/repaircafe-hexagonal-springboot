@@ -1,14 +1,15 @@
 package fr.ycaby.repaircafe.infrastrucure.secondary.db.entities;
 
 import jakarta.persistence.Embeddable;
+import java.time.LocalDate;
 import lombok.Builder;
 import lombok.Data;
 
 @Embeddable
-@Builder
 @Data
-public class RolePK {
-    String memberSerialNumber;
-    String role;
+@Builder
+public class RepairPK {
+    String deviceSerialNumber;
+    LocalDate date;
 
 }

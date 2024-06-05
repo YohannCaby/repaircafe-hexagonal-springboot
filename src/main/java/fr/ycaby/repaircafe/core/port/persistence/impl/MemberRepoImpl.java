@@ -1,6 +1,5 @@
 package fr.ycaby.repaircafe.core.port.persistence.impl;
 
-import fr.ycaby.repaircafe.core.exception.MemberRoleAbsentExpception;
 import fr.ycaby.repaircafe.core.exception.MemberRoleAlreadyPresentException;
 import fr.ycaby.repaircafe.core.exception.MembershipAlreadyPresentException;
 import fr.ycaby.repaircafe.core.model.Device;
@@ -58,33 +57,19 @@ public class MemberRepoImpl implements MemberRepo {
             throws MembershipAlreadyPresentException {
         List<Membership> memberships = membershipRepo.getFrom(member);
         if(memberships.stream().anyMatch(o -> o.equals(membership))){
-            throw new MembershipAlreadyPresentException(SERIAL_NUMBER+ member.getSerialNumber() + " has already membership to date : " + membership.getDate());
+            throw new MembershipAlreadyPresentException(SERIAL_NUMBER+ member.getMemberSerialNumber() + " has already membership to date : " + membership.getDate());
         }
         return membershipRepo.createFrom(member,membership);
     }
 
     @Override
-    public MemberRoleEnum removeMemberRole(Member member, MemberRoleEnum role)
-            throws MemberRoleAbsentExpception {
-        List<MemberRoleEnum> roles = roleRepo.getFrom(member);
-        if(roles.stream().noneMatch(o -> o.equals(role))){
-            throw new MemberRoleAbsentExpception(SERIAL_NUMBER+ member.getSerialNumber() + " has no role : " + role);
-        }
+    public MemberRoleEnum removeMemberRole(Member member, MemberRoleEnum role){
         return roleRepo.removeFrom(member,role);
     }
 
     @Override
     public MemberRoleEnum addMemberRole(Member member, MemberRoleEnum role) {
-        List<MemberRoleEnum> roles = roleRepo.getFrom(member);
-        if(roles.stream().anyMatch(o -> o.equals(role))){
-            throw new MemberRoleAlreadyPresentException(SERIAL_NUMBER+ member.getSerialNumber() + " has already role : " + role);
-        }
         return roleRepo.createFrom(member,role);
-    }
-
-    @Override
-    public List<MemberRoleEnum> getAllRoles() {
-        return roleRepo.getAllRoles();
     }
 
     @Override
@@ -107,7 +92,7 @@ public class MemberRepoImpl implements MemberRepo {
         if(!member.getDeviceList().isEmpty()){
             List<Device> devices = new ArrayList<>();
             for(Device device : member.getDeviceList()){
-                devices.add(deviceRepo.createFrom(member,device));
+                devices.add(deviceRepo.create(member,device));
             }
             response.setDeviceList(devices);
         }
@@ -134,7 +119,7 @@ public class MemberRepoImpl implements MemberRepo {
         if(!member.getDeviceList().isEmpty()){
             List<Device> devices = new ArrayList<>();
             for(Device device : member.getDeviceList()){
-                devices.add(deviceRepo.updateFrom(member,device));
+                devices.add(deviceRepo.update(device));
             }
             response.setDeviceList(devices);
         }

@@ -10,7 +10,7 @@ import fr.ycaby.repaircafe.core.model.Repair;
 
 public interface DeviceRepo {
     Device create(Member member, Device device) throws DeviceAlreadyPresentException;
-    Device update(Member member, Device device) throws DeviceAbsentException;
+    Device update(Device device) throws DeviceAbsentException;
     Device addRepair(Device device, Repair repair) throws RepairAlreadyPresentException, DeviceAbsentException;
     Device updateRepair(Device device, Repair repair) throws RepairAbsentException, DeviceAbsentException;
 }
