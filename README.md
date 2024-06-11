@@ -14,4 +14,4 @@ Elle est composée de trois couches principales :
 
 ## Diagrammme de classe
 
-![img.png](doc/RepaireCafeHexagonalStructure.png)
+![img.png](doc/diagramme_de_classes.png)
