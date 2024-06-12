@@ -1,6 +1,5 @@
 package fr.ycaby.repaircafe.infrastrucure.secondary.db.repo;
 
-import fr.ycaby.repaircafe.core.model.Membership;
 import fr.ycaby.repaircafe.infrastrucure.secondary.db.entities.MembershipEntity;
 import fr.ycaby.repaircafe.infrastrucure.secondary.db.entities.MembershipPK;
 import org.springframework.data.jpa.repository.Query;
@@ -10,5 +9,5 @@ import java.util.List;
 
 public interface MembershipJpaRepo extends CrudRepository<MembershipEntity, MembershipPK> {
     @Query("SELECT m FROM MembershipEntity m WHERE m.id.memberSerialNumber = :memberSerialNumber")
-    List<MembershipEntity> findBySerialNumber(String serialNumber);
+    List<MembershipEntity> findBySerialNumber(String memberSerialNumber);
 }

@@ -35,7 +35,7 @@ public class MembershipEntitMapperTest {
         entity.setExpiration(LocalDate.of(2025,5,21));
         entity.setPaid(7);
         MembershipPK id = new MembershipPK();
-        id.setSerialNumber("YCAB_1987");
+        id.setMemberSerialNumber("YCAB_1987");
         id.setDate(LocalDate.of(2024,5,21));
         entity.setId(id);
 

@@ -5,6 +5,7 @@ import fr.ycaby.repaircafe.core.model.MemberRoleEnum;
 import fr.ycaby.repaircafe.core.port.persistence.port.MemberRoleRepoPort;
 import fr.ycaby.repaircafe.infrastrucure.secondary.db.entities.RoleEntity;
 import fr.ycaby.repaircafe.infrastrucure.secondary.db.entities.RolePK;
+import fr.ycaby.repaircafe.infrastrucure.secondary.db.mapper.RoleEntityMapper;
 import fr.ycaby.repaircafe.infrastrucure.secondary.db.mapper.RoleEntityMapperImpl;
 import fr.ycaby.repaircafe.infrastrucure.secondary.db.repo.RoleJpaRepo;
 import java.util.List;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MemberRoleRepo implements MemberRoleRepoPort {
     private final RoleJpaRepo roleJpaRepo;
-    private final RoleEntityMapperImpl mapper;
+    private final RoleEntityMapper mapper;
 
     public MemberRoleRepo(RoleJpaRepo roleJpaRepo, RoleEntityMapperImpl mapper) {
         this.roleJpaRepo = roleJpaRepo;

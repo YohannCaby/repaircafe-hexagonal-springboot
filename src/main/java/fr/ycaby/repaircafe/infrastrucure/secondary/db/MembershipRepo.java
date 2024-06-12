@@ -50,7 +50,7 @@ public class MembershipRepo implements MembershipRepoPort {
 
     private MembershipEntity mapToEntity(Member member, Membership membership){
         MembershipEntity membershipEntity = mapper.toEntity(membership);
-        membershipEntity.getId().setSerialNumber(member.getMemberSerialNumber());
+        membershipEntity.getId().setMemberSerialNumber(member.getMemberSerialNumber());
         return membershipEntity;
     }
 

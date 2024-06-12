@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface RoleJpaRepo extends CrudRepository<RoleEntity, RolePK>{
     @Query("SELECT m FROM RoleEntity m WHERE m.id.memberSerialNumber = :memberSerialNumber")
-    List<RoleEntity> findBySerialNumber(String serialNumber);
+    List<RoleEntity> findBySerialNumber(String memberSerialNumber);
 }

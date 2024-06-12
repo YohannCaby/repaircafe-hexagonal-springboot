@@ -102,6 +102,9 @@ public class MemberUseCaseImpl implements MemberUseCase {
      */
     @Override
     public Member addMembership(Member member, Membership membership) throws MembershipAlreadyPresentException {
+        if(Objects.isNull(membership.getExpiration())) {
+            membership.computeExpirationDate();
+        }
         member.getMembershipList().add(memberRepo.addMemberMembership(member,membership));
         return member;
     }

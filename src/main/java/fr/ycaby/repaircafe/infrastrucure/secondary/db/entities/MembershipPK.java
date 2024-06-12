@@ -14,6 +14,6 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 @Embeddable
 public class MembershipPK {
-    String serialNumber;
+    String memberSerialNumber;
     LocalDate date;
 }

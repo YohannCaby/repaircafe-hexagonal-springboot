@@ -20,7 +20,7 @@ public class MemberRepo implements MemberRepoPort {
 
     @Override
     public Member findBySerialNumber(String serialNumber) {
-        return mapper.toDomain(memberJpaRepo.findBySerialNumber(serialNumber).stream().findFirst().get());
+        return mapper.toDomain(memberJpaRepo.findByMemberSerialNumber(serialNumber).stream().findFirst().get());
     }
 
     @Override
@@ -37,7 +37,7 @@ public class MemberRepo implements MemberRepoPort {
 
     @Override
     public boolean isExist(Member o) {
-        return memberJpaRepo.existsBySerialNumber(o.getMemberSerialNumber());
+        return memberJpaRepo.existsByMemberSerialNumber(o.getMemberSerialNumber());
     }
 
     @Override
